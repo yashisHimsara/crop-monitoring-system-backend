@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Field {
+  id            Int     @id @default(autoincrement())
+  fieldCode     String  @unique
+  fieldName     String
+  fieldLocation String
+  size          String // Updated from fieldSize to size
+  crops         String // Added crops
+  staff         String // Added staff
+  image         String? // Added image
+}
+
+model Crop {
+  id             Int     @id @default(autoincrement())
+  cropCode       String  @unique
+  commonName     String // Updated from cropCommonName to commonName
+  scientificName String // Updated from cropScientificName to scientificName
+  image          String? // Updated from cropImage to image
+  category       String // Updated from cropCategory to category
+  season         String // Updated from cropSeason to season
+  field          String // Updated from cropField to field
+}
+
+model Staff {
+  id          Int    @id @default(autoincrement())
+  employeeId  String @unique // Updated from staffId to employeeId
+  firstName   String
+  lastName    String
+  designation String
+  address     String
+  contact     String // Updated from contactNo to contact
+  gender      String
+  joinedDate  String
+  email       String @unique
+}
+
+model Vehicle {
+  id              Int    @id @default(autoincrement())
+  vehicleCode     String @unique // Updated from vehicleId to vehicleCode
+  licensePlate    String // Updated from licensePlateNumber to licensePlate
+  vehicleCategory String
+  fuelType        String
+  status          String // Updated from Boolean to String
+  allocatedStaff  String
+}
+
+model Equipment {
+  id             Int    @id @default(autoincrement())
+  equipmentId    String @unique
+  name           String // Updated from equipmentName to name
+  type           String // Updated from equipmentType to type
+  status         String // Updated from equipmentStatus to status
+  allocatedStaff String // Updated from assignedStaff to allocatedStaff
+}
